@@ -5,6 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"os"
 	"io/ioutil"
+	"encoding/json"
 )
 
 func TestWriteTransactionHistoryToFile(t *testing.T) {
@@ -33,19 +34,10 @@ func TestWriteTransactionHistoryToFile(t *testing.T) {
 		panic(err)
 	}
 
+	b, _ := json.Marshal(th)
+
 	// Check what was written into the file
-	assert.Equal(
-		t,
-		"{\""+
-			"transactions\":["+
-			"{"+
-			"\"date\":\"2018/10/24\","+
-			"\"reason\":\"Moved in\","+
-			"\"itemName\":\"HDMI cable\","+
-			"\"itemDescription\":\"For my STEAM Link\","+
-			"\"amount\":1"+"}"+
-			"]"+
-			"}", string(dat), "They should be equal")
+	assert.Equal(t, string(b), string(dat), "They should be equal")
 }
 
 func TestReadTransactionHistoryToFile(t *testing.T) {
@@ -82,4 +74,8 @@ func TestReadTransactionHistoryToFile(t *testing.T) {
 
 	newTh := TransactionHistory{[]Transaction{}}
 	newTh.Read(f2, fileInfo.Size())
+
+
+
+	assert.Equal(t, th, newTh)
 }
