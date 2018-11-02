@@ -43,7 +43,7 @@ func TestCreateListFromHistory(t *testing.T) {
 		panic(err)
 	}
 
-	assert.Contains(t, l, t2.Item, "The list should only contain a SATA cable")
+	assert.Contains(t, l.Items, t2.Item, "The list should only contain a SATA cable")
 }
 
 func TestCreateListFromHistoryAndRemoveNonExistingItem(t *testing.T) {
