@@ -16,7 +16,6 @@ var cmdList = &cobra.Command{
 }
 
 func listRun(cmd *cobra.Command, args []string) {
-
 	h := inventory.History{}
 	h.ReadFile(file)
 
