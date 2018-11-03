@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"inventorli/inventory"
-	"os"
 	"time"
 )
 
@@ -29,21 +28,9 @@ func run(cmd *cobra.Command, args []string) {
 		fmt.Printf("you must provide at least one file")
 		return
 	}
-	f, err := os.OpenFile(file, os.O_RDWR, 0644)
-	if err != nil {
-		fmt.Printf("%s", err)
-		return
-	}
-	defer f.Close()
-
-	stat, err := os.Stat(file)
-	if err != nil {
-		fmt.Printf("%s", err)
-		return
-	}
 
 	h := inventory.History{}
-	h.Read(f, stat.Size())
+	h.ReadFile(file)
 	h.Transactions = append(h.Transactions, inventory.Transaction{
 		time.Now().Format("2006/01/02"),
 		reason,
@@ -54,11 +41,7 @@ func run(cmd *cobra.Command, args []string) {
 		amount,
 	})
 
-	fmt.Printf("%s", len(h.Transactions))
-	f.Truncate(0)
-	f.Seek(0, 0)
-
-	err = h.Write(f)
+	err := h.WriteFile(file)
 	if err != nil {
 		panic(err)
 	}
