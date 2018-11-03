@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"inventorli/inventory"
-	"os"
 )
 
 var cmdList = &cobra.Command{
@@ -17,32 +16,17 @@ var cmdList = &cobra.Command{
 }
 
 func listRun(cmd *cobra.Command, args []string) {
-	if file == "" {
-		return
-	}
-	f, err := os.Open(file)
-	if err != nil {
-		fmt.Printf("%s", err)
-		return
-	}
-	defer f.Close()
-
-	stat, err := os.Stat(file)
-	if err != nil {
-		fmt.Printf("%s", err)
-		return
-	}
 
 	h := inventory.History{}
-	h.Read(f, stat.Size())
+	h.ReadFile(file)
 
-	inventory, err := inventory.ReproduceFromHistory(h)
+	inv, err := inventory.ReproduceFromHistory(h)
 	if err != nil {
 		fmt.Printf("%s", err)
 		return
 	}
 
-	for i, item := range inventory.Items {
+	for i, item := range inv.Items {
 		fmt.Println(fmt.Sprintf("[%d] %s", i, item.Name))
 	}
 }
