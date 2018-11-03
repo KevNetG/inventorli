@@ -7,8 +7,6 @@ import (
 	"os"
 )
 
-var file string
-
 var cmdList = &cobra.Command{
 	Use:   "list [string to echo]",
 	Short: "list the items inside a box",

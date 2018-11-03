@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+var file string
+
 var rootCmd = &cobra.Command{
 	Use:   "invemtory",
 	Short: "Inventory is a tool for managing and tracking your stuff",
