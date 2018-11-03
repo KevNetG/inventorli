@@ -45,9 +45,9 @@ func runRemove(cmd *cobra.Command, args []string) {
 
 	h.Transactions = append(h.Transactions, inventory.Transaction{
 		time.Now().Format("2006/01/02"),
-		"",
+		reason,
 		inv.Items[idx],
-		-1,
+		-amount,
 	})
 
 	fmt.Printf("%s", len(h.Transactions))
