@@ -1,4 +1,4 @@
-package inventory
+package main
 
 type Transaction struct {
 	Date   string `json:"date"`
