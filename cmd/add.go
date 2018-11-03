@@ -54,19 +54,19 @@ func init() {
 		"",
 		"Box file",
 	)
-	cmdRemove.Flags().StringVarP(&reason,
+	cmdAdd.Flags().StringVarP(&reason,
 		"reason",
 		"r",
 		"",
 		"Reason what the item is or was used for",
 	)
-	cmdRemove.Flags().StringVarP(&description,
+	cmdAdd.Flags().StringVarP(&description,
 		"description",
 		"d",
 		"",
 		"Additional information to the item",
 	)
-	cmdRemove.Flags().IntVarP(&amount,
+	cmdAdd.Flags().IntVarP(&amount,
 		"amount",
 		"n",
 		1,
