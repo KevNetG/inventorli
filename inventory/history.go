@@ -5,11 +5,11 @@ import (
 	"io"
 )
 
-type TransactionHistory struct {
+type History struct {
 	Transactions []Transaction `json:"transactions"`
 }
 
-func (t *TransactionHistory) Write(w io.Writer) error {
+func (t *History) Write(w io.Writer) error {
 	b, err := json.Marshal(*t)
 	if err != nil {
 		return err
@@ -19,7 +19,7 @@ func (t *TransactionHistory) Write(w io.Writer) error {
 	return err
 }
 
-func (t *TransactionHistory) Read(r io.Reader, n int64) {
+func (t *History) Read(r io.Reader, n int64) {
 	b := make([]byte, n)
 	r.Read(b)
 	json.Unmarshal(b, t)

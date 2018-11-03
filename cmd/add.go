@@ -40,7 +40,7 @@ func run(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	h := inventory.TransactionHistory{}
+	h := inventory.History{}
 	h.Read(f, stat.Size())
 	h.Transactions = append(h.Transactions, inventory.Transaction{
 		time.Now().Format("2006/01/02"),

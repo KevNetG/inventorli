@@ -33,7 +33,7 @@ func listRun(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	h := inventory.TransactionHistory{}
+	h := inventory.History{}
 	h.Read(f, stat.Size())
 
 	inventory, err := inventory.ReproduceFromHistory(h)

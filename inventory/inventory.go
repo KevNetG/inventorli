@@ -15,7 +15,7 @@ func New() *Inventory {
 	}
 }
 
-func ReproduceFromHistory(history TransactionHistory) (Inventory, error) {
+func ReproduceFromHistory(history History) (Inventory, error) {
 	inventory := New()
 
 	for _, t := range history.Transactions {

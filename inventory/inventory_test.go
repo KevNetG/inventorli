@@ -36,7 +36,7 @@ func TestCreateListFromHistory(t *testing.T) {
 		-1,
 	}
 
-	h := TransactionHistory{[]Transaction{t1, t2, t3}}
+	h := History{[]Transaction{t1, t2, t3}}
 
 	l, err := ReproduceFromHistory(h)
 	if err != nil {
@@ -77,7 +77,7 @@ func TestCreateListFromHistoryAndRemoveNonExistingItem(t *testing.T) {
 		-1,
 	}
 
-	h := TransactionHistory{[]Transaction{t1, t2, t3}}
+	h := History{[]Transaction{t1, t2, t3}}
 
 	_, err := ReproduceFromHistory(h)
 

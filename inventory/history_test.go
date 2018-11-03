@@ -24,7 +24,7 @@ func TestWriteTransactionHistoryToFile(t *testing.T) {
 		},
 		1,
 	}
-	th := TransactionHistory{}
+	th := History{}
 	th.Transactions = []Transaction{tr}
 
 	th.Write(f)
@@ -56,7 +56,7 @@ func TestReadTransactionHistoryToFile(t *testing.T) {
 		},
 		1,
 	}
-	th := TransactionHistory{
+	th := History{
 		[]Transaction{tr},
 	}
 	th.Write(f)
@@ -72,7 +72,7 @@ func TestReadTransactionHistoryToFile(t *testing.T) {
 		panic(err)
 	}
 
-	newTh := TransactionHistory{[]Transaction{}}
+	newTh := History{[]Transaction{}}
 	newTh.Read(f2, fileInfo.Size())
 
 	assert.Equal(t, th, newTh)
