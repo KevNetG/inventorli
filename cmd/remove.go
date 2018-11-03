@@ -50,8 +50,6 @@ func runRemove(cmd *cobra.Command, args []string) {
 		-amount,
 	})
 
-	fmt.Printf("%s", len(h.Transactions))
-
 	err = h.WriteFile(file)
 	if err != nil {
 		panic(err)
