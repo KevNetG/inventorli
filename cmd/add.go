@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+var description string
+
 var cmdAdd = &cobra.Command{
 	Use:   "add [string to echo]",
 	Short: "add the items inside a box",
@@ -44,12 +46,12 @@ func run(cmd *cobra.Command, args []string) {
 	h.Read(f, stat.Size())
 	h.Transactions = append(h.Transactions, inventory.Transaction{
 		time.Now().Format("2006/01/02"),
-		"",
+		reason,
 		inventory.Item{
 			args[0],
-			"",
+			description,
 		},
-		1,
+		amount,
 	})
 
 	fmt.Printf("%s", len(h.Transactions))
@@ -63,7 +65,30 @@ func run(cmd *cobra.Command, args []string) {
 }
 
 func init() {
-	cmdAdd.Flags().StringVarP(&file, "file", "f", "", "Box file")
+	cmdAdd.Flags().StringVarP(&file,
+		"file",
+		"f",
+		"",
+		"Box file",
+	)
+	cmdRemove.Flags().StringVarP(&reason,
+		"reason",
+		"r",
+		"",
+		"Reason what the item is or was used for",
+	)
+	cmdRemove.Flags().StringVarP(&description,
+		"description",
+		"d",
+		"",
+		"Additional information to the item",
+	)
+	cmdRemove.Flags().IntVarP(&amount,
+		"amount",
+		"n",
+		1,
+		"How many Items shall be added to the box",
+	)
 
 	rootCmd.AddCommand(cmdAdd)
 }
