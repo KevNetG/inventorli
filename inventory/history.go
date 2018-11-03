@@ -22,7 +22,7 @@ func (h *History) Write(w io.Writer) error {
 
 // Truncates the file before writing
 func (h *History) WriteFile(path string) error {
-	f, err := os.OpenFile(path, os.O_WRONLY, 0644)
+	f, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		return err
 	}
