@@ -9,6 +9,7 @@ import (
 var file string
 var reason string
 var amount int
+var directory string
 
 var rootCmd = &cobra.Command{
 	Use:   "inventorli",

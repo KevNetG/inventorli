@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"inventorli/inventory"
+	"io/ioutil"
 	"math"
+	"path"
 )
 
 var cmdList = &cobra.Command{
@@ -17,8 +19,31 @@ var cmdList = &cobra.Command{
 }
 
 func listRun(cmd *cobra.Command, args []string) {
+	if directory != "" {
+		d, err := ioutil.ReadDir(directory)
+		if err != nil {
+			fmt.Printf("%s", err)
+		}
+
+		for _, f := range d {
+			printInventory(path.Join(directory, f.Name()))
+		}
+	}
+
+	if file != "" {
+		printInventory(file)
+	}
+}
+
+func printInventory(path string) {
+	fmt.Printf("%s\n", path)
+	fmt.Printf("-----\n")
 	h := inventory.History{}
-	h.ReadFile(file)
+	err := h.ReadFile(path)
+	if err != nil {
+		fmt.Printf("%s", err)
+		return
+	}
 
 	inv, err := inventory.ReproduceFromHistory(h)
 	if err != nil {
@@ -40,7 +65,20 @@ func listRun(cmd *cobra.Command, args []string) {
 }
 
 func init() {
-	cmdList.Flags().StringVarP(&file, "file", "f", "", "Box files")
+	cmdList.Flags().StringVarP(
+		&file,
+		"file",
+		"f",
+		"",
+		"Box file",
+	)
+	cmdList.Flags().StringVarP(
+		&directory,
+		"directory",
+		"d",
+		"",
+		"Path to directory with history files",
+	)
 
 	rootCmd.AddCommand(cmdList)
 }
