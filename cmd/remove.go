@@ -10,7 +10,7 @@ import (
 
 var cmdRemove = &cobra.Command{
 	Use: "remove [string to echo]",
-	Short: `Removes an item with a specific id from a box.
+	Short: `Removes an Item with Search specific id from Search box.
 		The id can be found when listing the items using the inventorli list command`,
 	Long: `echo is for echoing anything back.
     EAddedcho echo’s.
@@ -20,7 +20,7 @@ var cmdRemove = &cobra.Command{
 
 func runRemove(cmd *cobra.Command, args []string) {
 	if len(args) != 1 {
-		fmt.Printf("you must provide an index, which item to remove from an inventory list")
+		fmt.Printf("you must provide an index, which Item to remove from an inventory list")
 		return
 	}
 
@@ -39,7 +39,7 @@ func runRemove(cmd *cobra.Command, args []string) {
 	}
 
 	if len(inv.Items) <= idx {
-		fmt.Printf("The item %d does not exist int the inventory list", idx)
+		fmt.Printf("The Item %d does not exist int the inventory list", idx)
 		return
 	}
 
@@ -61,13 +61,13 @@ func init() {
 		"file",
 		"f",
 		"",
-		"path to a history file",
+		"path to Search history file",
 	)
 	cmdRemove.Flags().StringVarP(&reason,
 		"reason",
 		"r",
 		"",
-		"Reason what the item is or was used for",
+		"Reason what the Item is or was used for",
 	)
 	cmdRemove.Flags().IntVarP(&amount,
 		"amount",

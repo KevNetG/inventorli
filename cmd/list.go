@@ -11,7 +11,7 @@ import (
 
 var cmdList = &cobra.Command{
 	Use:   "list [string to echo]",
-	Short: "list the items inside a box",
+	Short: "list the items inside Search box",
 	Long: `echo is for echoing anything back.
     Echo echo’s.
     `,
@@ -50,7 +50,10 @@ func printInventory(path string) {
 		fmt.Printf("%s", err)
 		return
 	}
+	printBox(box)
+}
 
+func printBox(box inventory.Box) {
 	for i, item := range box.Items {
 		fmt.Printf("[%d] %s", i, item.Name)
 		fmt.Println()

@@ -11,7 +11,7 @@ var description string
 
 var cmdAdd = &cobra.Command{
 	Use:   "add [string to echo]",
-	Short: "add the items inside a box",
+	Short: "add the items inside Search box",
 	Long: `echo is for echoing anything back.
     Echo echo’s.
     `,
@@ -20,7 +20,7 @@ var cmdAdd = &cobra.Command{
 
 func run(cmd *cobra.Command, args []string) {
 	if len(args) != 1 {
-		fmt.Printf("you must provide exactly one item name")
+		fmt.Printf("you must provide exactly one Item name")
 		return
 	}
 
@@ -58,13 +58,13 @@ func init() {
 		"reason",
 		"r",
 		"",
-		"Reason what the item is or was used for",
+		"Reason what the Item is or was used for",
 	)
 	cmdAdd.Flags().StringVarP(&description,
 		"description",
 		"d",
 		"",
-		"Additional information to the item",
+		"Additional information to the Item",
 	)
 	cmdAdd.Flags().IntVarP(&amount,
 		"amount",
