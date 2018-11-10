@@ -45,15 +45,15 @@ func printInventory(path string) {
 		return
 	}
 
-	inv, err := inventory.ReproduceFromHistory(h)
+	box, err := inventory.ReproduceFromHistory(h)
 	if err != nil {
 		fmt.Printf("%s", err)
 		return
 	}
 
-	for i, item := range inv.Items {
-		fmt.Println(fmt.Sprintf("[%d] %s", i, item.Name))
-		fmt.Printf("   ")
+	for i, item := range box.Items {
+		fmt.Printf("[%d] %s", i, item.Name)
+		fmt.Println()
 
 		for j := 0; j < int(math.Log10(float64(i+1))+1); j++ {
 			fmt.Print(" ")
