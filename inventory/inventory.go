@@ -5,22 +5,24 @@ import (
 	"fmt"
 )
 
-type Inventory struct {
+type Box struct {
 	Items []Item
 }
 
-func New() *Inventory {
-	return &Inventory{
+func New() *Box {
+	return &Box{
 		[]Item{},
 	}
 }
 
-func ReproduceFromHistory(history History) (Inventory, error) {
+func ReproduceFromHistory(history History) (Box, error) {
 	inventory := New()
 
 	for _, t := range history.Transactions {
 		if t.Amount > 0 {
-			inventory.Add(t.Item)
+			for i := 0; i < t.Amount; i++ {
+				inventory.Add(t.Item)
+			}
 		} else {
 			err := inventory.Remove(t.Item.Name)
 			if err != nil {
@@ -31,11 +33,11 @@ func ReproduceFromHistory(history History) (Inventory, error) {
 	return *inventory, nil
 }
 
-func (i *Inventory) Add(item Item) {
+func (i *Box) Add(item Item) {
 	i.Items = append(i.Items, item)
 }
 
-func (i *Inventory) Remove(name string) error {
+func (i *Box) Remove(name string) error {
 	idx := i.Contains(name)
 	if idx == -1 {
 		return errors.New(fmt.Sprintf("Non existing item %s was removed from the box", name))
@@ -45,9 +47,19 @@ func (i *Inventory) Remove(name string) error {
 	return nil
 }
 
-func (i *Inventory) Contains(name string) int {
+func (i *Box) Contains(name string) int {
 	for idx, item := range i.Items {
 		if item.Name == name {
+			return idx
+		}
+	}
+
+	return -1
+}
+
+func (i *Box) ContainsItem(item Item) int {
+	for idx, it := range i.Items {
+		if it.Name == item.Name && it.Description == item.Description {
 			return idx
 		}
 	}
